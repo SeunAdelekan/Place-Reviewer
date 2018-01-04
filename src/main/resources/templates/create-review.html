@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>New review</title>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link href="https://fastcdn.org/Buttons/2.0.0/css/buttons.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://fastcdn.org/Buttons/2.0.0/js/buttons.js"></script>
+    <script src="./js/particles.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLACmLSGxjkF_Gucgj0rWPTKcNWvDwW5s&libraries=places"></script>
+
+    <style>
+        #map {
+            height: 400px;
+        }
+
+        #container-place-data {
+            height: 0 !important
+        }
+
+        #container-place-info {
+            font-size: 14px;
+        }
+
+        #container-selection-status {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body id="particles-js">
+<nav class="navbar navbar-default nav-enhanced">
+    <div class="container-fluid container-nav">
+        <div class="navbar-header">
+            <div class="navbar-brand" style="font-family:fantasy">
+                Place Reviewer
+            </div>
+        </div>
+        <ul class="navbar-nav">
+            <li class="active"><a class="btn" href="#"><i class="fa fa-power-off" aria-hidden="true"></i> logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <form class="form-group col-sm-12 form-vertical form-app" id="form-login" method="post" action="home.html">
+                <div class="col-sm-12 mt-2 lead">Write your review</div>
+                <hr>
+                <input class="form-control" type="text" name="title" placeholder="Title" required/>
+                <textarea class="form-control mt-4" rows="14" name="review" placeholder="Review" required></textarea>
+                <div class="form-group" id="container-place-data" style="visibility: hidden">
+                    <input class="form-control" id="place-formatted-address" type="text" name="place_formatted_address" required/>
+                    <input class="form-control" id="place-name" type="text" name="place_name" required/>
+                    <input class="form-control" id="place-id" type="text" name="place_id" required/>
+                </div>
+                <div class="form-group mb-3">
+                    <button class="button button-pill" type="button" data-toggle="modal" data-target="#mapModal">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i> Select Location
+                    </button>
+                    <button class="button button-pill button-primary">Submit Review</button>
+                </div>
+                <div class="text-success ml-2" id="container-selection-status">Location selected</div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mapModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select place to review</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div id="map">
+                        </div>
+                        <div class="row mt-2" id="container-place-info">
+                            <div class="col-sm-12" id="container-place-name"><b>Place Name:</b> </div>
+                            <div class="col-sm-12" id="container-place-address"><b>Place Address:</b> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    var formattedAddressField = document.getElementById('place-formatted-address');
+    var placeNameField = document.getElementById('place-name');
+    var placeIdField = document.getElementById('place-id');
+
+    var containerPlaceName = document.getElementById('container-place-name');
+    var containerPlaceAddress = document.getElementById('container-place-address');
+    var containerSelectionStatus = document.getElementById('container-selection-status');
+
+    function initialize() {
+
+        navigator.geolocation.getCurrentPosition(function(location) {
+            var latitude = location.coords.latitude;
+            var longitude = location.coords.longitude;
+
+            // Create a map to show the results, and an info window to
+            // pop up if the user clicks on the place marker.
+            var pyrmont = new google.maps.LatLng(latitude, longitude);
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: pyrmont,
+                zoom: 15,
+                scrollwheel: false
+            });
+
+            var infowindow = new google.maps.InfoWindow();
+            var service = new google.maps.places.PlacesService(map);
+
+            map.addListener('click', function(data) {
+                console.log(data.placeId);
+                let placeId = data.placeId;
+                placeDetailsByPlaceId(service, map, placeId, infowindow);
+            });
+
+            document.getElementById('submit').addEventListener('click', function() {
+                placeDetailsByPlaceId(service, map, infowindow);
+            });
+        });
+
+    }
+
+    function placeDetailsByPlaceId(service, map, placeId, infowindow) {
+        // Create and send the request to obtain details for a specific place,
+        // using its Place ID.
+        var request = {
+            placeId: placeId
+        };
+
+        service.getDetails(request, function (place, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                // If the request succeeds, draw the place location on the map
+                // as a marker, and register an event to handle a click on the marker.
+                formattedAddressField.value = place.formatted_address;
+                placeNameField.value = place.name;
+                placeIdField.value = place.place_id;
+
+                containerPlaceName.innerHTML = '<b>Place Name: </b>' + place.name;
+                containerPlaceAddress.innerHTML = '<b>Place Address: </b>' + place.formatted_address;
+                containerSelectionStatus.style.visibility = 'visible'
+            }
+        });
+    }
+
+    // Run the initialize function when the window has finished loading.
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</body>
+</html>

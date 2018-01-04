@@ -1,0 +1,22 @@
+.nav-enhanced {
+    background-color: #00BFFF;
+    border-color: blueviolet;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    box-shadow: 0 0 3px black;
+    text-decoration-color: white !important;
+}
+
+.container-nav {
+    height: 10%;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.form-app {
+    background-color: white;
+    box-shadow: 0 0px 0.5px black;
+    margin-top: 50px !important;
+    padding: 10px 0
+}

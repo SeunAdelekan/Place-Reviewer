@@ -1,0 +1,34 @@
+package com.example.placereviewer.data.model
+
+import org.springframework.format.annotation.DateTimeFormat
+import java.time.Instant
+import java.util.*
+import javax.persistence.*
+import javax.validation.constraints.Size
+
+/**
+ * @author Iyanu Adelekan on 04/01/2018.
+ */
+@Entity
+@Table(name = "`review`")
+data class Review(
+        @ManyToOne(optional = false)
+        @JoinColumn(name = "user_id", referencedColumnName = "id")
+        var reviewer: User? = null,
+        var title: String = "",
+        @Size(min = 15)
+        var body: String = "",
+        @Column(name = "place_address")
+        @Size(min = 5)
+        var placeAddress: String = "",
+        @Column(name = "place_name")
+        var placeName: String = "",
+        @Column(name = "place_id")
+        var placeId: String = "",
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        var id: Long = 0,
+        @DateTimeFormat
+        @Column(name = "created_at")
+        var createdAt: Date = Date.from(Instant.now())
+)

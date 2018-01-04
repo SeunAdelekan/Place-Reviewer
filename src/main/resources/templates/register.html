@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="./js/particles.js"></script>
+
+    <script>
+        particlesJS.load('particles-js', './config/particlesjs-config.json', function() {
+            console.log('callback - particles.js config loaded');
+        });
+    </script>
+</head>
+<body id="particles-js">
+<nav class="navbar navbar-default nav-enhanced">
+    <div class="container-fluid container-nav">
+        <div class="navbar-header">
+            <div class="navbar-brand" style="font-family:fantasy">
+                Place Reviewer
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid" style="z-index: 2; position: absolute">
+    <div class="row mt-5">
+        <div class="col-sm-4 col-xs-2">
+
+        </div>
+        <div class="col-sm-4 col-xs-8">
+            <form class="form-group col-sm-12 form-vertical form-app" id="form-register" method="post" th:action="@{/users/registrations}">
+                <div class="col-sm-12 mt-2 lead text-center text-primary">Create an account</div>
+                <hr>
+                <input class="form-control" type="text" name="username" placeholder="Username" required/>
+                <input class="form-control mt-2" type="email" name="email" placeholder="Email" required/>
+                <input class="form-control mt-2" type="password" name="password" placeholder="Password" required/>
+                <span th:if="${param.error}" class="mt-2 text-danger" style="font-size: 10px">An error occurred</span>
+                <button class="btn btn-primary form-control mt-2 mb-3" type="submit">Sign Up!</button>
+            </form>
+        </div>
+        <div class="col-sm-4 col-xs-2"></div>
+    </div>
+</div>
+</body>
+</html>

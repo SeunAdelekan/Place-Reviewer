@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="/static/js/particles.js"></script>
+
+    <script type="text/javascript">
+        particlesJS.load('particles-js', '/public/assets/particlesjs-config.json', function() {
+            console.log('callback - particles.js config loaded');
+        });
+    </script>
+</head>
+<body id="particles-js">
+<nav class="navbar navbar-default nav-enhanced">
+    <div class="container-fluid container-nav">
+        <div class="navbar-header">
+            <div class="navbar-brand" style="font-family:fantasy">
+                Place Reviewer
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid" style="z-index: 2; position: absolute">
+    <div class="row mt-5">
+        <div class="col-sm-4 col-xs-2">
+
+        </div>
+        <div class="col-sm-4 col-xs-8">
+            <form class="form-group col-sm-12 form-vertical form-app" id="form-login" method="post" th:action="@{/login}">
+                <div class="col-sm-12 mt-2 lead text-center text-primary">Login to your account</div>
+                <hr>
+                <input class="form-control" type="text" name="username" placeholder="Username" required/>
+                <input class="form-control mt-2" type="password" name="password" placeholder="Password" required/>
+                <span th:if="${param.error}" class="mt-2 text-danger" style="font-size: 10px">Invalid username and password combination</span>
+                <button class="btn btn-primary form-control mt-2 mb-3" type="submit">Go!</button>
+            </form>
+        </div>
+        <div class="col-sm-4 col-xs-2">
+            <div th:if="${param.logout}" class="col-sm-12 text-success text-right">
+                You have been logged out.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

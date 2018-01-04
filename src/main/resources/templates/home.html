@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Place Reviewer:: Login</title>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link href="https://fastcdn.org/Buttons/2.0.0/css/buttons.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://fastcdn.org/Buttons/2.0.0/js/buttons.js"></script>
+    <script src="./js/particles.js"></script>
+
+    <script>
+        particlesJS.load('particles-js', './config/particlesjs-config.json', function() {
+            console.log('callback - particles.js config loaded');
+        });
+    </script>
+
+    <style>
+        .container-review {
+            background-color: white;
+            border-radius: 5px;
+            font-family:sans-serif;
+            padding: 10px 0;
+            box-shadow: 0 0 2px black;
+        }
+
+        .review-author {
+            font-size: 15px
+        }
+
+        .review-location {
+            font-size: 12px
+        }
+
+        .review-title {
+            font-size: 13px;
+            text-decoration-style:dotted
+        }
+
+        .review-content {
+            font-size: 12px
+        }
+    </style>
+</head>
+<body id="particles-js">
+<nav class="navbar navbar-default nav-enhanced">
+    <div class="container-fluid container-nav">
+        <div class="navbar-header">
+            <div class="navbar-brand" style="font-family:fantasy">
+                Place Reviewer
+            </div>
+        </div>
+        <ul class="navbar-nav">
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <button class="btn btn-danger" type="submit"><i class="fa fa-power-off" aria-hidden="true"></i> Sign Out</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid" style="z-index: 2; position: absolute">
+    <div class="container mt-5">
+        <div class="row mt-5">
+            <div class="col-sm-3 container-review" style="border-color: black">
+                <div class="col-sm-12 review-author">
+                    <b>Iyanu Adelekan</b>
+                </div>
+                <div class="col-sm-12 review-location">
+                    The ventura mall, Ibadan
+                </div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-content">
+                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3 container-review" style="border-color: black">
+                <div class="col-sm-12 review-author">
+                    <b>Iyanu Adelekan</b>
+                </div>
+                <div class="col-sm-12 review-location">
+                    The ventura mall, Ibadan
+                </div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-content">
+                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3 container-review" style="border-color: black">
+                <div class="col-sm-12 review-author">
+                    <b>Iyanu Adelekan</b>
+                </div>
+                <div class="col-sm-12 review-location">
+                    The ventura mall, Ibadan
+                </div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-content">
+                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-sm-3 container-review" style="border-color: black">
+                <div class="col-sm-12 review-author">
+                    <b>Iyanu Adelekan</b>
+                </div>
+                <div class="col-sm-12 review-location">
+                    The ventura mall, Ibadan
+                </div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-content">
+                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3 container-review" style="border-color: black">
+                <div class="col-sm-12 review-author">
+                    <b>Iyanu Adelekan</b>
+                </div>
+                <div class="col-sm-12 review-location">
+                    The ventura mall, Ibadan
+                </div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-content">
+                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3 container-review" style="border-color: black">
+                <div class="col-sm-12 review-author">
+                    <b>Iyanu Adelekan</b>
+                </div>
+                <div class="col-sm-12 review-location">
+                    The ventura mall, Ibadan
+                </div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
+                <hr class="mt-0">
+                <div class="col-sm-12 review-content">
+                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<span style="bottom: 20px; right: 20px; position: absolute">
+    <form method="get" th:action="@{/reviews/new}">
+        <button class="button button-primary button-circle button-giant navbar-bottom" type="submit"><i class="fa fa-plus"></i></button>
+    </form>
+</span>
+</body>
+</html>
