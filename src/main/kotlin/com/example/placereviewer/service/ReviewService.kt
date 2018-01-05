@@ -7,13 +7,7 @@ import com.example.placereviewer.data.model.Review
  */
 interface ReviewService {
 
-    fun createReview(
-            title: String,
-            body: String,
-            placeName: String,
-            placeAddress: String,
-            placeId: String
-    )
+    fun createReview(reviewerUsername: String, reviewData: Review): Boolean
 
-    fun listReviews(): List<Review>
+    fun listReviews(): Iterable<Review>
 }

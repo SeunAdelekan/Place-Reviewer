@@ -15,11 +15,12 @@ data class Review(
         @ManyToOne(optional = false)
         @JoinColumn(name = "user_id", referencedColumnName = "id")
         var reviewer: User? = null,
+        @Size(min = 5)
         var title: String = "",
-        @Size(min = 15)
+        @Size(min = 10)
         var body: String = "",
         @Column(name = "place_address")
-        @Size(min = 5)
+        @Size(min = 2)
         var placeAddress: String = "",
         @Column(name = "place_name")
         var placeName: String = "",

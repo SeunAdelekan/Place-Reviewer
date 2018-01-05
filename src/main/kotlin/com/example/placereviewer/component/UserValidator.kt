@@ -2,7 +2,6 @@ package com.example.placereviewer.component
 
 import com.example.placereviewer.data.model.User
 import com.example.placereviewer.data.repository.UserRepository
-import com.example.placereviewer.service.UserService
 import org.springframework.stereotype.Component
 import org.springframework.validation.Errors
 import org.springframework.validation.ValidationUtils
@@ -32,7 +31,7 @@ class UserValidator(private val userRepository: UserRepository) : Validator {
         }
 
         if (user.password.length < 8) {
-            errors?.rejectValue("password", "Size.userForm.password");
+            errors?.rejectValue("password", "Size.userForm.password")
         }
     }
 }

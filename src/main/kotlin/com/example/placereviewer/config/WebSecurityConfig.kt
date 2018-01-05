@@ -14,10 +14,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.web.DefaultRedirectStrategy
+import org.springframework.security.web.RedirectStrategy
 
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig(val userDetailsService: AppUserDetailsService) : WebSecurityConfigurerAdapter() {
+
+    private val redirectStrategy: RedirectStrategy = DefaultRedirectStrategy()
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
@@ -28,6 +32,9 @@ class WebSecurityConfig(val userDetailsService: AppUserDetailsService) : WebSecu
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .successHandler { request, response, _ ->
+                    redirectStrategy.sendRedirect(request, response, "/home")
+                }
                 .permitAll()
                 .and()
                 .logout()

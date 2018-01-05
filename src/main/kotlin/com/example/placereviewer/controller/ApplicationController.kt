@@ -1,5 +1,6 @@
 package com.example.placereviewer.controller
 
+import com.example.placereviewer.service.ReviewService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest
  * @author Iyanu Adelekan on 04/01/2018.
  */
 @Controller
-class ApplicationController {
+class ApplicationController(val reviewService: ReviewService) {
 
     @GetMapping("/register")
     fun register(model: Model): String {
@@ -18,6 +19,9 @@ class ApplicationController {
 
     @GetMapping("/home")
     fun home(request: HttpServletRequest, model: Model): String {
+        val reviews = reviewService.listReviews()
+        model.addAttribute("reviews", reviews)
+
         return "home"
     }
 

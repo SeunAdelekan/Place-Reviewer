@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Place Reviewer:: Login</title>
+    <title>Home</title>
     <link rel="stylesheet" href="css/app.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -64,6 +64,22 @@
 </nav>
 <div class="container-fluid" style="z-index: 2; position: absolute">
     <div class="container mt-5">
+        <div class="row mt-5">
+            <div th:each="review: ${reviews}" class="col-sm-3 container-review mr-4" style="border-color: black">
+                <div class="col-sm-12 review-author">
+                    <b th:text="${review.reviewer.username}"></b>
+                </div>
+                <div th:text="${review.placeName}" class="col-sm-12 review-location">
+                </div>
+                <hr class="mt-0">
+                <div th:text="${review.title}" class="col-sm-12 review-title mt-0">
+                    <b>Title: </b> <span th:text="${review.title}"></span>
+                </div>
+                <hr class="mt-0">
+                <div th:text="${review.body}" class="col-sm-12 review-content">
+                </div>
+            </div>
+        </div>
         <div class="row mt-5">
             <div class="col-sm-3 container-review" style="border-color: black">
                 <div class="col-sm-12 review-author">

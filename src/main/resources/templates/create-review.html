@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>New review</title>
     <link rel="stylesheet" href="css/app.css"/>
@@ -48,15 +48,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-xs-12">
-            <form class="form-group col-sm-12 form-vertical form-app" id="form-login" method="post" action="home.html">
+            <form class="form-group col-sm-12 form-vertical form-app" id="form-login" method="post" th:action="@{/reviews}">
                 <div class="col-sm-12 mt-2 lead">Write your review</div>
+                <div th:if="${param.error}" class="text-danger">Something bad happened</div>
                 <hr>
                 <input class="form-control" type="text" name="title" placeholder="Title" required/>
-                <textarea class="form-control mt-4" rows="14" name="review" placeholder="Review" required></textarea>
+                <textarea class="form-control mt-4" rows="14" name="body" placeholder="Review" required></textarea>
                 <div class="form-group" id="container-place-data" style="visibility: hidden">
-                    <input class="form-control" id="place-formatted-address" type="text" name="place_formatted_address" required/>
-                    <input class="form-control" id="place-name" type="text" name="place_name" required/>
-                    <input class="form-control" id="place-id" type="text" name="place_id" required/>
+                    <input class="form-control" id="place_address" type="text" name="placeAddress" required/>
+                    <input class="form-control" id="place_name" type="text" name="placeName" required/>
+                    <input class="form-control" id="place_id" type="text" name="placeId" required/>
                 </div>
                 <div class="form-group mb-3">
                     <button class="button button-pill" type="button" data-toggle="modal" data-target="#mapModal">
@@ -99,9 +100,9 @@
 </div>
 
 <script>
-    var formattedAddressField = document.getElementById('place-formatted-address');
-    var placeNameField = document.getElementById('place-name');
-    var placeIdField = document.getElementById('place-id');
+    var formattedAddressField = document.getElementById('place_address');
+    var placeNameField = document.getElementById('place_name');
+    var placeIdField = document.getElementById('place_id');
 
     var containerPlaceName = document.getElementById('container-place-name');
     var containerPlaceAddress = document.getElementById('container-place-address');
@@ -128,7 +129,7 @@
 
             map.addListener('click', function(data) {
                 console.log(data.placeId);
-                let placeId = data.placeId;
+                var placeId = data.placeId;
                 placeDetailsByPlaceId(service, map, placeId, infowindow);
             });
 
