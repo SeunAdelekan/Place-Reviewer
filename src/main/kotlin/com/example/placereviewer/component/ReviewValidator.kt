@@ -24,6 +24,8 @@ class ReviewValidator: Validator {
         ValidationUtils.rejectIfEmpty(errors, "placeName", "Empty.reviewForm.placeName")
         ValidationUtils.rejectIfEmpty(errors, "placeAddress", "Empty.reviewForm.placeAddress")
         ValidationUtils.rejectIfEmpty(errors, "placeId", "Empty.reviewForm.placeId")
+        ValidationUtils.rejectIfEmpty(errors, "latitude", "Empty.reviewForm.latitude")
+        ValidationUtils.rejectIfEmpty(errors, "longitude", "Empty.reviewForm.longitude")
 
 //        if (review.title.length < 5) {
 //            errors?.rejectValue("title", "Size.reviewForm.title")

@@ -4,6 +4,7 @@ import com.example.placereviewer.service.ReviewService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import java.security.Principal
 import javax.servlet.http.HttpServletRequest
 
 /**
@@ -18,9 +19,11 @@ class ApplicationController(val reviewService: ReviewService) {
     }
 
     @GetMapping("/home")
-    fun home(request: HttpServletRequest, model: Model): String {
+    fun home(request: HttpServletRequest, model: Model, principal: Principal): String {
         val reviews = reviewService.listReviews()
+
         model.addAttribute("reviews", reviews)
+        model.addAttribute("principal", principal)
 
         return "home"
     }

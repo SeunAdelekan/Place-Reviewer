@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import java.security.Principal
 import javax.servlet.http.HttpServletRequest
 
 /**
@@ -47,7 +48,8 @@ class ReviewController(val reviewValidator: ReviewValidator, val reviewService: 
     }
 
     @GetMapping("/new")
-    fun writeReview(request: HttpServletRequest, model: Model): String {
+    fun writeReview(principal: Principal, model: Model): String {
+        model.addAttribute("principal", principal)
         return "create-review"
     }
 }

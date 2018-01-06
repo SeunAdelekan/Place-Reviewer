@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<nav class="navbar navbar-default nav-enhanced" th:fragment="navbar">
+    <div class="container-fluid container-nav">
+        <div class="navbar-header">
+            <div class="navbar-brand" style="font-family:fantasy">
+                Place Reviewer
+            </div>
+        </div>
+        <ul class="navbar-nav" th:if="${principal != null}">
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <button class="btn btn-danger" type="submit">
+                        <i class="fa fa-power-off" aria-hidden="true"></i> Sign Out
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>

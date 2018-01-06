@@ -2,29 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Home</title>
-    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link href="https://fastcdn.org/Buttons/2.0.0/css/buttons.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <script src="https://fastcdn.org/Buttons/2.0.0/js/buttons.js"></script>
-    <script src="./js/particles.js"></script>
-
-    <script>
-        particlesJS.load('particles-js', './config/particlesjs-config.json', function() {
-            console.log('callback - particles.js config loaded');
-        });
-    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLACmLSGxjkF_Gucgj0rWPTKcNWvDwW5s&libraries=places"></script>
 
     <style>
+        #map {
+            height: 400px;
+        }
+
         .container-review {
             background-color: white;
-            border-radius: 5px;
+            border-radius: 2px;
             font-family:sans-serif;
-            padding: 10px 0;
-            box-shadow: 0 0 2px black;
+            padding: 10px 0 0;
+            box-shadow: 0 0 1px black;
         }
 
         .review-author {
@@ -45,139 +46,114 @@
         }
     </style>
 </head>
-<body id="particles-js">
-<nav class="navbar navbar-default nav-enhanced">
-    <div class="container-fluid container-nav">
-        <div class="navbar-header">
-            <div class="navbar-brand" style="font-family:fantasy">
-                Place Reviewer
-            </div>
-        </div>
-        <ul class="navbar-nav">
-            <li>
-                <form th:action="@{/logout}" method="post">
-                    <button class="btn btn-danger" type="submit"><i class="fa fa-power-off" aria-hidden="true"></i> Sign Out</button>
-                </form>
-            </li>
-        </ul>
-    </div>
-</nav>
-<div class="container-fluid" style="z-index: 2; position: absolute">
+<body th:onload="'javascript:showNoReviewNotification(' + ${reviews.size() == 0} + ')'">
+<div th:insert="fragments/navbar :: navbar">
+
+</div>
+<div class="container-fluid">
     <div class="container mt-5">
         <div class="row mt-5">
-            <div th:each="review: ${reviews}" class="col-sm-3 container-review mr-4" style="border-color: black">
-                <div class="col-sm-12 review-author">
+            <div th:each="review: ${reviews}" class="col-sm-2 container-review mt-4" style="border-color: black">
+                <div class="col-sm-12 review-author text-success">
                     <b th:text="${review.reviewer.username}"></b>
                 </div>
                 <div th:text="${review.placeName}" class="col-sm-12 review-location">
                 </div>
                 <hr class="mt-0">
+                <b>
                 <div th:text="${review.title}" class="col-sm-12 review-title mt-0">
-                    <b>Title: </b> <span th:text="${review.title}"></span>
                 </div>
+                </b>
                 <hr class="mt-0">
                 <div th:text="${review.body}" class="col-sm-12 review-content">
                 </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-sm-3 container-review" style="border-color: black">
-                <div class="col-sm-12 review-author">
-                    <b>Iyanu Adelekan</b>
-                </div>
-                <div class="col-sm-12 review-location">
-                    The ventura mall, Ibadan
-                </div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-content">
-                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
-                </div>
-            </div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-3 container-review" style="border-color: black">
-                <div class="col-sm-12 review-author">
-                    <b>Iyanu Adelekan</b>
-                </div>
-                <div class="col-sm-12 review-location">
-                    The ventura mall, Ibadan
-                </div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-content">
-                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
-                </div>
-            </div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-3 container-review" style="border-color: black">
-                <div class="col-sm-12 review-author">
-                    <b>Iyanu Adelekan</b>
-                </div>
-                <div class="col-sm-12 review-location">
-                    The ventura mall, Ibadan
-                </div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-content">
-                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-sm-3 container-review" style="border-color: black">
-                <div class="col-sm-12 review-author">
-                    <b>Iyanu Adelekan</b>
-                </div>
-                <div class="col-sm-12 review-location">
-                    The ventura mall, Ibadan
-                </div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-content">
-                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
-                </div>
-            </div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-3 container-review" style="border-color: black">
-                <div class="col-sm-12 review-author">
-                    <b>Iyanu Adelekan</b>
-                </div>
-                <div class="col-sm-12 review-location">
-                    The ventura mall, Ibadan
-                </div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-content">
-                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
-                </div>
-            </div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-3 container-review" style="border-color: black">
-                <div class="col-sm-12 review-author">
-                    <b>Iyanu Adelekan</b>
-                </div>
-                <div class="col-sm-12 review-location">
-                    The ventura mall, Ibadan
-                </div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-title mt-0"><b>Title:</b> It was good but...</div>
-                <hr class="mt-0">
-                <div class="col-sm-12 review-content">
-                    Please replace flag emoticons with some new facw smileys. They are used more frequently than any other emoticons.
+                <div class="container-fluid mt-2">
+                    <div class="row">
+                        <button class="col-sm-12 button button-small button-primary" type="button" data-toggle="modal" data-target="#mapModal"
+                                th:onclick="'javascript:showLocation(' + ${review.latitude} + ',' + ${review.longitude} + ',\'' + ${review.placeId} + '\')'">
+                            <i class="fa fa-map-o" aria-hidden="true"></i>
+                            View location
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<span style="bottom: 20px; right: 20px; position: absolute">
+<div class="modal fade" id="mapModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reviewed location</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div id="map">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<span style="bottom: 20px; right: 20px; position: fixed">
     <form method="get" th:action="@{/reviews/new}">
         <button class="button button-primary button-circle button-giant navbar-bottom" type="submit"><i class="fa fa-plus"></i></button>
     </form>
 </span>
+
+<script>
+
+    function showNoReviewNotification(show) {
+        if (show) {
+            toastr.info('No reviews to see');
+        }
+    }
+
+    function showReviewSentNotification() {
+        toastr.info('Your review has been posted');
+    }
+
+    function showLocation(latitude, longitude, placeId) {
+        var center = new google.maps.LatLng(latitude, longitude);
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: center,
+            zoom: 15,
+            scrollwheel: false
+        });
+
+        var service = new google.maps.places.PlacesService(map);
+
+        loadPlaceMarker(service, map, placeId);
+
+    }
+
+    function loadPlaceMarker(service, map, placeId) {
+        var request = {
+            placeId: placeId
+        };
+
+        service.getDetails(request, function (place, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                console.log(place);
+                new google.maps.Marker({
+                    map: map,
+                    title: place.name,
+                    place: {
+                        placeId: place.place_id,
+                        location: place.geometry.location
+                    }
+
+                })
+            }
+        });
+    }
+</script>
 </body>
 </html>

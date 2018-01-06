@@ -26,6 +26,8 @@ data class Review(
         var placeName: String = "",
         @Column(name = "place_id")
         var placeId: String = "",
+        var latitude: Double = 0.0,
+        var longitude: Double = 0.0,
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0,
