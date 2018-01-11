@@ -1,11 +1,7 @@
 .nav-enhanced {
     background-color: #00BFFF;
     border-color: blueviolet;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
     box-shadow: 0 0 3px black;
-    text-decoration-color: white !important;
 }
 
 .container-nav {
@@ -18,5 +14,5 @@
     background-color: white;
     box-shadow: 0 0 1px black;
     margin-top: 50px !important;
-    padding: 10px 0
+    padding: 10px 0;
 }
