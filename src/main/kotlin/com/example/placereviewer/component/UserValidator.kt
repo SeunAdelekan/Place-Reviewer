@@ -12,6 +12,7 @@ import org.springframework.validation.Validator
  */
 @Component
 class UserValidator(private val userRepository: UserRepository) : Validator {
+
     override fun supports(aClass: Class<*>?): Boolean {
         return User::class == aClass
     }
