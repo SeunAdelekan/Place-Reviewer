@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service
  * @author Iyanu Adelekan on 04/01/2018.
  */
 @Service
-class SecurityServiceImpl(
-                          private val userDetailsService: AppUserDetailsService) : SecurityService {
+class SecurityServiceImpl(private val userDetailsService: AppUserDetailsService) : SecurityService {
 
     @Autowired
     lateinit var authManager: AuthenticationManager
