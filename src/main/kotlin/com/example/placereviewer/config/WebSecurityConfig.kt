@@ -27,7 +27,7 @@ class WebSecurityConfig(val userDetailsService: AppUserDetailsService) : WebSecu
     override fun configure(http: HttpSecurity) {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/greeting", "/register", "/users/registrations", "/reviews/**", "/css/**").permitAll()
+                .antMatchers( "/register", "/users/registrations", "/css/**", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

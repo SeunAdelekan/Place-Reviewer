@@ -4,14 +4,14 @@
     <title>Home</title>
     <link rel="stylesheet" th:href="@{/css/app.css}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link href="https://fastcdn.org/Buttons/2.0.0/css/buttons.css" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="/webjars/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
     <script src="https://fastcdn.org/Buttons/2.0.0/js/buttons.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLACmLSGxjkF_Gucgj0rWPTKcNWvDwW5s&libraries=places"></script>
 
@@ -115,10 +115,6 @@
         }
     }
 
-    function showReviewSentNotification() {
-        toastr.info('Your review has been posted');
-    }
-
     function showLocation(latitude, longitude, placeId) {
         var center = new google.maps.LatLng(latitude, longitude);
 
@@ -140,7 +136,7 @@
         };
 
         service.getDetails(request, function (place, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
                 console.log(place);
                 new google.maps.Marker({
                     map: map,

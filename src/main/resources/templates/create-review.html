@@ -3,13 +3,13 @@
 <head>
     <title>New review</title>
     <link rel="stylesheet" th:href="@{/css/app.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link href="https://fastcdn.org/Buttons/2.0.0/css/buttons.css" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="/webjars/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
     <script src="https://fastcdn.org/Buttons/2.0.0/js/buttons.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLACmLSGxjkF_Gucgj0rWPTKcNWvDwW5s&libraries=places"></script>
 
@@ -135,7 +135,7 @@
         };
 
         service.getDetails(request, function (place, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
                 // If the request succeeds, draw the place location on the map
                 // as a marker, and register an event to handle a click on the marker.
                 formattedAddressField.value = place.formatted_address;

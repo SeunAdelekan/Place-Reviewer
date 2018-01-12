@@ -14,7 +14,7 @@ import javax.validation.constraints.Size
 @Entity
 @Table(name = "`user`")
 @EntityListeners(UserListener::class)
-class User(
+data class User(
         @Column(unique = true)
         @Size(min = 2)
         @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}\$")
