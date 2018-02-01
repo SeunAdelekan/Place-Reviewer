@@ -17,22 +17,27 @@ class UserValidator(private val userRepository: UserRepository) : Validator {
         return User::class == aClass
     }
 
-    override fun validate(obj: Any?, errors: Errors?) {
+    override fun validate(obj: Any?, errors: Errors) {
         val user: User = obj as User
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "USR_001")
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "USR_001")
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "USR_001")
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "Empty.userForm.username",
+                "Username cannot be empty")
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Empty.userForm.password",
+                "Password cannot be empty")
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Empty.userForm.email",
+                "Email cannot be empty")
 
-        if (user.username.length < 6 || user.username.length > 32) {
-            errors?.rejectValue("username", "Size.userForm.username")
+        if (user.username.length < 6) {
+            errors.rejectValue("username", "Length.userForm.username",
+                    "Username must be at least 6 characters in length")
         }
         if (userRepository.findByUsername(user.username) != null) {
-            errors?.rejectValue("username", "Duplicate.userForm.username")
+            errors.rejectValue("username", "Duplicate.userForm.username", "Username unavailable")
         }
 
         if (user.password.length < 8) {
-            errors?.rejectValue("password", "Size.userForm.password")
+            errors.rejectValue("password", "Length.userForm.password",
+                    "Password must be at least 8 characters in length")
         }
     }
 }

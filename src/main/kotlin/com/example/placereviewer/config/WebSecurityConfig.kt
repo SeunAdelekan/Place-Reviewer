@@ -6,6 +6,7 @@ package com.example.placereviewer.config
 import com.example.placereviewer.service.AppUserDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.BeanIds
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -27,7 +28,11 @@ class WebSecurityConfig(val userDetailsService: AppUserDetailsService) : WebSecu
     override fun configure(http: HttpSecurity) {
         http
                 .authorizeRequests()
-                .antMatchers( "/register", "/users/registrations", "/css/**", "/webjars/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/say/hello").permitAll() // added line
+                .antMatchers(HttpMethod.GET, "/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/registrations").permitAll()
+                .antMatchers(HttpMethod.GET, "/css/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

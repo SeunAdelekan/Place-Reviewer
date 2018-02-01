@@ -5,6 +5,7 @@ import com.example.placereviewer.data.model.User
 import com.example.placereviewer.service.SecurityService
 import com.example.placereviewer.service.UserService
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -20,10 +21,15 @@ class UserController(val userValidator: UserValidator, val userService: UserServ
                      val securityService: SecurityService) {
 
     @PostMapping("/registrations")
-    fun create(@ModelAttribute form: User, bindingResult: BindingResult): String {
+    fun create(@ModelAttribute form: User, bindingResult: BindingResult, model: Model): String {
         userValidator.validate(form, bindingResult)
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("error", bindingResult.allErrors.first().defaultMessage)
+            model.addAttribute("username", form.username)
+            model.addAttribute("email", form.email)
+            model.addAttribute("password", form.password)
+
             return "register"
         }
 

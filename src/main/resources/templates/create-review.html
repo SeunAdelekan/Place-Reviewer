@@ -40,16 +40,16 @@
         <div class="col-sm-12 col-xs-12">
             <form class="form-group col-sm-12 form-vertical form-app" id="form-login" method="post" th:action="@{/reviews}">
                 <div class="col-sm-12 mt-2 lead">Write your review</div>
-                <div th:if="${param.error}" class="text-danger">Something bad happened</div>
+                <div th:if="${error != null}" class="text-danger" th:text="${error}"></div>
                 <hr>
-                <input class="form-control" type="text" name="title" placeholder="Title" required/>
-                <textarea class="form-control mt-4" rows="13" name="body" placeholder="Review" required></textarea>
+                <input class="form-control" type="text" name="title" placeholder="Title" th:value="${title}" required/>
+                <textarea class="form-control mt-4" rows="13" name="body" placeholder="Review" th:value="${body}" required></textarea>
                 <div class="form-group" id="container-place-data" style="visibility: hidden">
-                    <input class="form-control" id="place_address" type="text" name="placeAddress" required/>
-                    <input class="form-control" id="place_name" type="text" name="placeName" required/>
-                    <input class="form-control" id="place_id" type="text" name="placeId" required/>
-                    <input id="location-lat" type="number" name="latitude" step="any" required/>
-                    <input id="location-lng" type="number" name="longitude" step="any" required/>
+                    <input class="form-control" id="place_address" th:value="${placeAddress}" type="text" name="placeAddress" required/>
+                    <input class="form-control" id="place_name" type="text" name="placeName" th:value="${placeName}" required/>
+                    <input class="form-control" id="place_id" type="text" name="placeId" th:value="${placeId}" required/>
+                    <input id="location-lat" type="number" name="latitude" step="any" th:value="${latitude}" required/>
+                    <input id="location-lng" type="number" name="longitude" step="any" th:value="${longitude}" required/>
                 </div>
                 <div class="form-group mb-3">
                     <button class="button button-pill" type="button" data-toggle="modal" data-target="#mapModal">

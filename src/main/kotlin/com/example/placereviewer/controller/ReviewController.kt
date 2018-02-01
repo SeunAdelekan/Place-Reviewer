@@ -31,7 +31,7 @@ class ReviewController(val reviewValidator: ReviewValidator, val reviewService: 
                request: HttpServletRequest): String {
         reviewValidator.validate(reviewForm, bindingResult)
 
-        bindingResult.allErrors.forEach { error -> logger.error("ERROR:::",error.defaultMessage) }
+        bindingResult.allErrors.forEach { error -> logger.error("ERROR:::", error.defaultMessage) }
 
         if (!bindingResult.hasErrors()) {
             logger.info("Principal name::", request.userPrincipal.name)
@@ -43,6 +43,15 @@ class ReviewController(val reviewValidator: ReviewValidator, val reviewService: 
                 return "redirect:/home"
             }
         }
+
+        model.addAttribute("error", bindingResult.allErrors.first().defaultMessage)
+        model.addAttribute("title", reviewForm.title)
+        model.addAttribute("body", reviewForm.body)
+        model.addAttribute("placeName", reviewForm.placeName)
+        model.addAttribute("placeAddress", reviewForm.placeAddress)
+        model.addAttribute("placeId", reviewForm.placeId)
+        model.addAttribute("longitude", reviewForm.longitude)
+        model.addAttribute("latitude", reviewForm.latitude)
 
         return "create-review"
     }
