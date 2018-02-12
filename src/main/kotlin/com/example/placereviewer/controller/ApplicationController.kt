@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest
 class ApplicationController(val reviewService: ReviewService) {
 
     @GetMapping("/register")
-    fun register(model: Model): String {
+    fun register(): String {
         return "register"
     }
 

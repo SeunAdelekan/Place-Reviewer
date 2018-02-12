@@ -24,20 +24,13 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/reviews")
 class ReviewController(val reviewValidator: ReviewValidator, val reviewService: ReviewService) {
 
-    private val logger: Logger = LoggerFactory.getLogger(ReviewController::class.java)
-
     @PostMapping
     fun create(@ModelAttribute reviewForm: Review, bindingResult: BindingResult, model: Model,
                request: HttpServletRequest): String {
         reviewValidator.validate(reviewForm, bindingResult)
 
-        bindingResult.allErrors.forEach { error -> logger.error("ERROR:::", error.defaultMessage) }
-
         if (!bindingResult.hasErrors()) {
-            logger.info("Principal name::", request.userPrincipal.name)
-
             val res = reviewService.createReview(request.userPrincipal.name, reviewForm)
-            logger.error("Result::", res.toString())
 
             if (res) {
                 return "redirect:/home"

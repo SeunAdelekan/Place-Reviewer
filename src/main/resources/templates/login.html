@@ -9,14 +9,11 @@
     <script src="/webjars/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div th:insert="fragments/navbar :: navbar">
+<div th:insert="fragments/navbar :: navbar"></div>
 
-</div>
 <div class="container-fluid" style="z-index: 2; position: absolute">
     <div class="row mt-5">
-        <div class="col-sm-4 col-xs-2">
-
-        </div>
+        <div class="col-sm-4 col-xs-2"></div>
         <div class="col-sm-4 col-xs-8">
             <form class="form-group col-sm-12 form-vertical form-app" id="form-login" method="post" th:action="@{/login}">
                 <div class="col-sm-12 mt-2 lead text-center text-primary">Login to your account</div>
