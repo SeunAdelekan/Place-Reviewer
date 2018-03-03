@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import java.security.Principal
-import javax.servlet.http.HttpServletRequest
 
 /**
  * @author Iyanu Adelekan on 04/01/2018.
@@ -19,7 +18,7 @@ class ApplicationController(val reviewService: ReviewService) {
     }
 
     @GetMapping("/home")
-    fun home(request: HttpServletRequest, model: Model, principal: Principal): String {
+    fun home(model: Model, principal: Principal): String {
         val reviews = reviewService.listReviews()
 
         model.addAttribute("reviews", reviews)
@@ -29,7 +28,8 @@ class ApplicationController(val reviewService: ReviewService) {
     }
 
     @GetMapping("/create-review")
-    fun createReview(request: HttpServletRequest, model: Model): String {
+    fun createReview(model: Model, principal: Principal): String {
+        model.addAttribute("principal", principal)
         return "create-review"
     }
 }

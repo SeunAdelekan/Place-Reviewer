@@ -3,10 +3,6 @@ package com.example.placereviewer.controller
 import com.example.placereviewer.component.ReviewValidator
 import com.example.placereviewer.data.model.Review
 import com.example.placereviewer.service.ReviewService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -46,12 +42,6 @@ class ReviewController(val reviewValidator: ReviewValidator, val reviewService: 
         model.addAttribute("longitude", reviewForm.longitude)
         model.addAttribute("latitude", reviewForm.latitude)
 
-        return "create-review"
-    }
-
-    @GetMapping("/new")
-    fun writeReview(principal: Principal, model: Model): String {
-        model.addAttribute("principal", principal)
         return "create-review"
     }
 }

@@ -24,8 +24,11 @@
             background-color: white;
             border-radius: 2px;
             font-family:sans-serif;
-            padding: 10px 0 0;
             box-shadow: 0 0 1px black;
+            border-color: black;
+            padding: 0;
+            min-width: 250px;
+            height: 230px;
         }
 
         .review-author {
@@ -38,11 +41,25 @@
 
         .review-title {
             font-size: 13px;
-            text-decoration-style:dotted
+            text-decoration-style: dotted;
+            height: calc(20 / 100 * 230px);
         }
 
         .review-content {
-            font-size: 12px
+            font-size: 12px;
+            height: calc(40 / 100 * 230px);
+        }
+
+        .review-header {
+            height: calc(20 / 100 * 230px)
+        }
+
+        hr {
+            margin: 0;
+        }
+
+        .review-footer {
+            height: calc(20 / 100 * 230px);
         }
     </style>
 </head>
@@ -50,32 +67,34 @@
 <div th:insert="fragments/navbar :: navbar">
 
 </div>
-<div class="container-fluid">
-    <div class="container mt-5">
-        <div class="row mt-5">
-            <div th:each="review: ${reviews}" class="col-sm-2 container-review mt-4" style="border-color: black">
+<div class="container">
+    <div class="row mt-5">
+
+        <!-- Creates view containers for each review retrieved -->
+        <div th:each="review: ${reviews}" class="col-sm-2 container-review mt-4 mr-2">
+            <div class="review-header pt-1">
                 <div class="col-sm-12 review-author text-success">
                     <b th:text="${review.reviewer.username}"></b>
                 </div>
                 <div th:text="${review.placeName}" class="col-sm-12 review-location">
                 </div>
-                <hr class="mt-0">
-                <b>
-                <div th:text="${review.title}" class="col-sm-12 review-title mt-0">
+            </div>
+            <hr>
+            <b>
+                <div th:text="${review.title}" class="col-sm-12 review-title pt-1">
                 </div>
-                </b>
-                <hr class="mt-0">
-                <div th:text="${review.body}" class="col-sm-12 review-content">
-                </div>
-                <div class="container-fluid mt-2">
-                    <div class="row">
-                        <button class="col-sm-12 button button-small button-primary" type="button" data-toggle="modal" data-target="#mapModal"
-                                th:onclick="'javascript:showLocation(' + ${review.latitude} + ',' + ${review.longitude} + ',\'' + ${review.placeId} + '\')'">
-                            <i class="fa fa-map-o" aria-hidden="true"></i>
-                            View location
-                        </button>
-                    </div>
-                </div>
+            </b>
+            <hr>
+            <div th:text="${review.body}" class="col-sm-12 review-content pt-2">
+            </div>
+            <div class="review-footer">
+                <!-- Renders modal showing review location on a map -->
+                <button class="col-sm-12 button button-small button-primary" type="button"
+                        data-toggle="modal" data-target="#mapModal" style="height: inherit; border-radius: 2px;"
+                        th:onclick="'javascript:showLocation(' + ${review.latitude} + ',' + ${review.longitude} + ',\'' + ${review.placeId} + '\')'">
+                    <i class="fa fa-map-o" aria-hidden="true"></i>
+                    View location
+                </button>
             </div>
         </div>
     </div>
@@ -102,19 +121,29 @@
     </div>
 </div>
 <span style="bottom: 20px; right: 20px; position: fixed">
-    <form method="get" th:action="@{/reviews/new}">
+    <form method="get" th:action="@{/create-review}">
         <button class="button button-primary button-circle button-giant navbar-bottom" type="submit"><i class="fa fa-plus"></i></button>
     </form>
 </span>
 
 <script>
-
+    /**
+     * Shows a toast notification to the user when no review is present
+     * @param show - true if notification is to be shown and false otherwise
+     */
     function showNoReviewNotification(show) {
         if (show) {
             toastr.info('No reviews to see');
         }
     }
 
+    /**
+     * Initializes and displays a map showing the location where
+     * a review was written
+     * @param latitude - latitudinal coordinate
+     * @param longitude - longitudinal coordinate of location
+     * @param placeId - place id of location
+     */
     function showLocation(latitude, longitude, placeId) {
         var center = new google.maps.LatLng(latitude, longitude);
 
@@ -123,13 +152,17 @@
             zoom: 15,
             scrollwheel: false
         });
-
         var service = new google.maps.places.PlacesService(map);
 
         loadPlaceMarker(service, map, placeId);
-
     }
 
+    /**
+     * Creates a map marker on the reviewed location
+     * @param service
+     * @param map
+     * @param placeId
+     */
     function loadPlaceMarker(service, map, placeId) {
         var request = {
             placeId: placeId
@@ -137,7 +170,6 @@
 
         service.getDetails(request, function (place, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-                console.log(place);
                 new google.maps.Marker({
                     map: map,
                     title: place.name,

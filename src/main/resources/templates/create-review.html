@@ -62,6 +62,7 @@
         </div>
     </div>
 
+    <!-- Map Modal -->
     <div class="modal fade" id="mapModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -87,29 +88,28 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 <script>
+    // form field reference creation
     var formattedAddressField = document.getElementById('place_address');
     var placeNameField = document.getElementById('place_name');
     var placeIdField = document.getElementById('place_id');
     var latitudeField = document.getElementById('location-lat');
     var longitudeField = document.getElementById('location-lng');
 
+    // container reference creation
     var containerPlaceName = document.getElementById('container-place-name');
     var containerPlaceAddress = document.getElementById('container-place-address');
     var containerSelectionStatus = document.getElementById('container-selection-status');
 
+    // invoked to initialize Google map
     function initialize() {
 
         navigator.geolocation.getCurrentPosition(function(location) {
             var latitude = location.coords.latitude;
             var longitude = location.coords.longitude;
 
-            // Create a map to show the results, and an info window to
-            // pop up if the user clicks on the place marker.
             var center = new google.maps.LatLng(latitude, longitude);
 
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -121,37 +121,74 @@
             var service = new google.maps.places.PlacesService(map);
 
             map.addListener('click', function(data) {
-                placeDetailsByPlaceId(service, data.placeId);
+                getPlaceDetailsById(service, data.placeId);
             });
         });
 
     }
 
-    function placeDetailsByPlaceId(service, placeId) {
-        // Create and send the request to obtain details for a specific place,
-        // using its Place ID.
+    /**
+     * Invoked to retrieve the details of a place
+     * @param service
+     * @param placeId
+     */
+    function getPlaceDetailsById(service, placeId) {
         var request = {
             placeId: placeId
         };
 
         service.getDetails(request, function (place, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-                // If the request succeeds, draw the place location on the map
-                // as a marker, and register an event to handle a click on the marker.
-                formattedAddressField.value = place.formatted_address;
-                placeNameField.value = place.name;
-                placeIdField.value = place.place_id;
-                latitudeField.value = place.geometry.location.lat();
-                longitudeField.value = place.geometry.location.lng();
-
-                containerPlaceName.innerHTML = '<b>Place Name: </b>' + place.name;
-                containerPlaceAddress.innerHTML = '<b>Place Address: </b>' + place.formatted_address;
-                containerSelectionStatus.style.visibility = 'visible'
+                updateViewData(place)
             }
         });
     }
 
-    // Run the initialize function when the window has finished loading.
+    /**
+     * Invoked to update view information
+     * @param place
+     */
+    function updateViewData(place) {
+        setFormValues(
+            place.formatted_address,
+            place.name,
+            place.place_id,
+            place.geometry.location.lat(),
+            place.geometry.location.lng()
+        );
+
+        setContainerText('<b>Place Name: </b>' + place.name,
+            '<b>Place Address: </b>' + place.formatted_address);
+
+        showSelectionStatusContainer();
+    }
+
+    /**
+     * Invoked to update view form data
+     * @param formattedAddress
+     * @param placeName
+     * @param placeId
+     * @param latitude
+     * @param longitude
+     */
+    function setFormValues(formattedAddress, placeName, placeId, latitude, longitude) {
+        formattedAddressField.value = formattedAddress;
+        placeNameField.value = placeName;
+        placeIdField.value = placeId;
+        latitudeField.value = latitude;
+        longitudeField.value = longitude;
+    }
+
+    function showSelectionStatusContainer() {
+        containerSelectionStatus.style.visibility = 'visible'
+    }
+
+    function setContainerText(placeNameText, placeAddressText) {
+        containerPlaceName.innerHTML = placeNameText;
+        containerPlaceAddress.innerHTML = placeAddressText;
+    }
+
+    // Initializes map upon window load completion
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 </body>

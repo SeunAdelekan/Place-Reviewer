@@ -20,6 +20,7 @@
             <form class="form-group col-sm-12 form-vertical form-app" id="form-register" method="post" th:action="@{/users/registrations}">
                 <div class="col-sm-12 mt-2 lead text-center text-primary">Create an account</div>
                 <hr>
+                <!-- utilized model attributes with th:value -->
                 <input class="form-control" type="text" name="username" placeholder="Username" th:value="${username}" required/>
                 <input class="form-control mt-2" type="email" name="email" placeholder="Email" th:value="${email}" required/>
                 <input class="form-control mt-2" type="password" name="password" placeholder="Password" th:value="${password}" required/>

@@ -1,8 +1,6 @@
 package com.example.placereviewer.component
 
 import com.example.placereviewer.data.model.Review
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.validation.Errors
 import org.springframework.validation.ValidationUtils
@@ -13,8 +11,6 @@ import org.springframework.validation.Validator
  */
 @Component
 class ReviewValidator: Validator {
-
-//    val logger: Logger = LoggerFactory.getLogger(ReviewValidator::class.java)
 
     override fun supports(aClass: Class<*>?): Boolean {
         return Review::class == aClass
@@ -39,15 +35,8 @@ class ReviewValidator: Validator {
         }
 
         if (review.body.length < 5) {
-            errors.rejectValue("body", "Length.reviewForm.body")
-        }
-
-        if (review.placeAddress.length < 10) {
-            errors.rejectValue("placeAddress", "Length.reviewForm.placeAddress")
-        }
-
-        if (review.placeName.length < 2) {
-            errors.rejectValue("placeName", "Length.reviewForm.placeName")
+            errors.rejectValue("body", "Length.reviewForm.body",
+                    "Body must be at least 5 characters long")
         }
     }
 }
