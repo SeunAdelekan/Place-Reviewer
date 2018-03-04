@@ -2,12 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Home</title>
+    <!-- Addition of external stylesheets -->
     <link rel="stylesheet" th:href="@{/css/app.css}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link href="https://fastcdn.org/Buttons/2.0.0/css/buttons.css" rel="stylesheet">
 
+    <!-- Inclusion of external Javascript -->
     <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
@@ -15,6 +17,7 @@
     <script src="https://fastcdn.org/Buttons/2.0.0/js/buttons.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLACmLSGxjkF_Gucgj0rWPTKcNWvDwW5s&libraries=places"></script>
 
+    <!-- Definition of internal styles -->
     <style>
         #map {
             height: 400px;
@@ -63,32 +66,30 @@
         }
     </style>
 </head>
+<!-- Invokes the showNoReviewNotification() function defined in -->
+<!-- internal Javascript of this file upon document load. -->
 <body th:onload="'javascript:showNoReviewNotification(' + ${reviews.size() == 0} + ')'">
 <div th:insert="fragments/navbar :: navbar">
-
 </div>
 <div class="container">
     <div class="row mt-5">
-
         <!-- Creates view containers for each review retrieved -->
+        <!-- Distinct <div> containers are created for the -->
+        <!-- review author, location, title and body. -->
         <div th:each="review: ${reviews}" class="col-sm-2 container-review mt-4 mr-2">
             <div class="review-header pt-1">
                 <div class="col-sm-12 review-author text-success">
                     <b th:text="${review.reviewer.username}"></b>
                 </div>
-                <div th:text="${review.placeName}" class="col-sm-12 review-location">
-                </div>
+                <div th:text="${review.placeName}" class="col-sm-12 review-location"></div>
             </div>
             <hr>
-            <b>
-                <div th:text="${review.title}" class="col-sm-12 review-title pt-1">
-                </div>
-            </b>
+            <b><div th:text="${review.title}" class="col-sm-12 review-title pt-1"></div></b>
             <hr>
-            <div th:text="${review.body}" class="col-sm-12 review-content pt-2">
-            </div>
+            <div th:text="${review.body}" class="col-sm-12 review-content pt-2"></div>
             <div class="review-footer">
-                <!-- Renders modal showing review location on a map -->
+                <!-- Creation of distinct DOM <button> elements for the display of reviewed locations. -->
+                <!-- Upon button click, the application renders a modal showing the reviewed location on a map -->
                 <button class="col-sm-12 button button-small button-primary" type="button"
                         data-toggle="modal" data-target="#mapModal" style="height: inherit; border-radius: 2px;"
                         th:onclick="'javascript:showLocation(' + ${review.latitude} + ',' + ${review.longitude} + ',\'' + ${review.placeId} + '\')'">
@@ -99,6 +100,7 @@
         </div>
     </div>
 </div>
+<!-- Modal creation -->
 <div class="modal fade" id="mapModal">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
