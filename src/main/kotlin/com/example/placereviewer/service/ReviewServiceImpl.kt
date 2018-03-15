@@ -7,7 +7,7 @@ import com.example.placereviewer.data.repository.UserRepository
 import org.springframework.stereotype.Service
 
 @Service
-class ReviewServiceImpl(private val reviewRepository: ReviewRepository, private val userRepository: UserRepository) : ReviewService {
+class ReviewServiceImpl(val reviewRepository: ReviewRepository, val userRepository: UserRepository) : ReviewService {
 
     override fun listReviews(): Iterable<Review> {
         return reviewRepository.findAll()
