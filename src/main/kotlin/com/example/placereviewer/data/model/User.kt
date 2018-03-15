@@ -8,9 +8,6 @@ import javax.persistence.*
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
-/**
- * @author Iyanu Adelekan on 02/01/2018.
- */
 @Entity
 @Table(name = "`user`")
 @EntityListeners(UserListener::class)

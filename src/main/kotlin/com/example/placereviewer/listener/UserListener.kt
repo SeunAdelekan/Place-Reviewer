@@ -5,9 +5,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import javax.persistence.PrePersist
 import javax.persistence.PreUpdate
 
-/**
- * @author Iyanu Adelekan on 02/01/2018.
- */
 class UserListener {
 
     @PrePersist

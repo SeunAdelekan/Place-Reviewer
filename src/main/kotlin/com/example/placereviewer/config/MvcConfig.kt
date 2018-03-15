@@ -5,9 +5,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
-/**
- * @author Iyanu Adelekan on 02/01/2018.
- */
 @Configuration
 class MvcConfig : WebMvcConfigurerAdapter() {
 

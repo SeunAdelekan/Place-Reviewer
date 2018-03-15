@@ -7,9 +7,6 @@ import org.springframework.validation.Errors
 import org.springframework.validation.ValidationUtils
 import org.springframework.validation.Validator
 
-/**
- * @author Iyanu Adelekan on 04/01/2018.
- */
 @Component
 class UserValidator(private val userRepository: UserRepository) : Validator {
 

@@ -1,8 +1,5 @@
 package com.example.placereviewer.service
 
-/**
- * @author Iyanu Adelekan on 04/01/2018.
- */
 interface SecurityService {
 
     fun findLoggedInUser(): String?

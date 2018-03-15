@@ -6,16 +6,11 @@ import com.example.placereviewer.service.ReviewService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
-import java.security.Principal
 import javax.servlet.http.HttpServletRequest
 
-/**
- * @author Iyanu Adelekan on 04/01/2018.
- */
 @Controller
 @RequestMapping("/reviews")
 class ReviewController(val reviewValidator: ReviewValidator, val reviewService: ReviewService) {
@@ -33,14 +28,16 @@ class ReviewController(val reviewValidator: ReviewValidator, val reviewService: 
             }
         }
 
-        model.addAttribute("error", bindingResult.allErrors.first().defaultMessage)
-        model.addAttribute("title", reviewForm.title)
-        model.addAttribute("body", reviewForm.body)
-        model.addAttribute("placeName", reviewForm.placeName)
-        model.addAttribute("placeAddress", reviewForm.placeAddress)
-        model.addAttribute("placeId", reviewForm.placeId)
-        model.addAttribute("longitude", reviewForm.longitude)
-        model.addAttribute("latitude", reviewForm.latitude)
+        with (model) {
+            addAttribute("error", bindingResult.allErrors.first().defaultMessage)
+            addAttribute("title", reviewForm.title)
+            addAttribute("body", reviewForm.body)
+            addAttribute("placeName", reviewForm.placeName)
+            addAttribute("placeAddress", reviewForm.placeAddress)
+            addAttribute("placeId", reviewForm.placeId)
+            addAttribute("longitude", reviewForm.longitude)
+            addAttribute("latitude", reviewForm.latitude)
+        }
 
         return "create-review"
     }

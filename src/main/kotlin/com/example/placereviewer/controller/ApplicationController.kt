@@ -6,9 +6,6 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import java.security.Principal
 
-/**
- * @author Iyanu Adelekan on 04/01/2018.
- */
 @Controller
 class ApplicationController(val reviewService: ReviewService) {
 

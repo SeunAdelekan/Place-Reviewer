@@ -1,8 +1,5 @@
 package com.example.placereviewer.config
 
-/**
- * @author Iyanu Adelekan on 02/01/2018.
- */
 import com.example.placereviewer.service.AppUserDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

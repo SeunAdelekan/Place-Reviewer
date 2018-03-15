@@ -6,9 +6,6 @@ import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Size
 
-/**
- * @author Iyanu Adelekan on 04/01/2018.
- */
 @Entity
 @Table(name = "`review`")
 data class Review(
